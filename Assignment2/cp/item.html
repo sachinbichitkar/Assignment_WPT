@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="itemstyles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+      $(() => {
+        $("#viewall").click(() => {
+          let input = { itemno: $("#itemno").val() };
+          let parameterstothefunction = {
+            data: input,
+            url: "http://localhost:900/getAllItems",
+            type: "get",
+            dataType: "json",
+            success: (datagivenbyserver) => {
+              console.log(datagivenbyserver);
+              let htmlDisplay = "";
+              for (let i = 0; i < datagivenbyserver.length; i++) {
+                htmlDisplay +=
+                  datagivenbyserver[i].itemno +
+                  " " +
+                  datagivenbyserver[i].itemname +
+                  " " +
+                  datagivenbyserver[i].price +
+                  " " +
+                  datagivenbyserver[i].category +
+                  "<br>";
+              }
+              $("#display").html(htmlDisplay);
+              $("#msg").text("Items Displayed");
+            },
+            error: (errorgivenbyserver) => {
+              console.log("failed to contact server " + errorgivenbyserver);
+            },
+          };
+          $.ajax(parameterstothefunction);
+        });
+
+        $("#itemno").blur(() => {
+          let itemno = $("#itemno").val();
+          let parameterstothefunction = {
+            data: { itemno: itemno },
+            url: "http://localhost:900/getItem",
+            type: "get",
+            dataType: "json",
+            success: (datagivenbyserver) => {
+              console.log(datagivenbyserver);
+
+              if (datagivenbyserver.status) {
+                $("#itemname").val(datagivenbyserver.itemDetails.itemname);
+                $("#itemprice").val(datagivenbyserver.itemDetails.price);
+                $("#category").val(datagivenbyserver.itemDetails.category);
+                $("#msg").text("Item Found");
+              } else {
+                $("#itemname").val("");
+                $("#itemprice").val("");
+                $("#category").val("");
+                $("#msg").text("Item not Found");
+              }
+            },
+            error: (errorgivenbyserver) => {
+              console.log("failed to contact server " + errorgivenbyserver);
+            },
+          };
+          $.ajax(parameterstothefunction);
+        });
+
+        $("#add").click(() => {
+          if (
+            $("#itemno").val() != "" &&
+            $("#itemname").val() != "" &&
+            $("#price").val() != "" &&
+            $("#category").val() != ""
+          ) {
+            let input = {
+              itemno: $("#itemno").val(),
+              itemname: $("#itemname").val(),
+              price: $("#itemprice").val(),
+              category: $("#category").val(),
+            };
+            let parameterstothefunction = {
+              data: input,
+              url: "http://localhost:900/addItem",
+              type: "get",
+              dataType: "json",
+              success: (datagivenbyserver) => {
+                console.log(datagivenbyserver);
+                if (datagivenbyserver) {
+                  $("#msg").text("Item added Successfully");
+                } else {
+                  $("#msg").text("Error");
+                }
+              },
+              error: (errorgivenbyserver) => {
+                console.log("failed to contact server " + errorgivenbyserver);
+              },
+            };
+            $.ajax(parameterstothefunction);
+          } else {
+            $("#msg").text("Please Enter all values");
+          }
+        });
+
+        $("#update").click(() => {
+          if (
+            $("#itemno").val() != "" &&
+            $("#itemname").val() != "" &&
+            $("#price").val() != "" &&
+            $("#category").val() != ""
+          ) {
+            let input = {
+              itemno: $("#itemno").val(),
+              itemname: $("#itemname").val(),
+              price: $("#itemprice").val(),
+              category: $("#category").val(),
+            };
+            let parameterstothefunction = {
+              data: input,
+              url: "http://localhost:900/updateItem",
+              type: "get",
+              dataType: "json",
+              success: (datagivenbyserver) => {
+                console.log(datagivenbyserver);
+                if (datagivenbyserver) {
+                  $("#msg").text("Item updated Successfully");
+                } else {
+                  $("#msg").text("Error");
+                }
+              },
+              error: (errorgivenbyserver) => {
+                console.log("failed to contact server " + errorgivenbyserver);
+              },
+            };
+            $.ajax(parameterstothefunction);
+          } else {
+            $("#msg").text("Please Enter all values");
+          }
+        });
+
+        $("#delete").click(() => {
+          let itemno = $("#itemno").val();
+          let parameterstothefunction = {
+            data: { itemno: itemno },
+            url: "http://localhost:900/deleteItem",
+            type: "get",
+            dataType: "json",
+            success: (datagivenbyserver) => {
+              console.log(datagivenbyserver);
+
+              if (datagivenbyserver) {
+                $("#itemno").val("");
+                $("#itemname").val("");
+                $("#itemprice").val("");
+                $("#category").val("");
+                $("#msg").text("Item Deleted");
+              } else {
+                $("#msg").text("Error");
+              }
+            },
+            error: (errorgivenbyserver) => {
+              console.log("failed to contact server " + errorgivenbyserver);
+            },
+          };
+          $.ajax(parameterstothefunction);
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <br /><div class="main">
+    <input type="text" id="itemno" placeholder="Item Number" />
+    <span id="msg"></span> <br />
+    <br />
+    <input type="text" id="itemname" placeholder="Item Name" />
+    <br /><br />
+    <input type="text" id="itemprice" placeholder="Item Price" /><br /><br />
+    <input type="text" id="category" placeholder="Category" />
+    <br />
+    <br /><br /><button id="add" class="button">Add Item</button>
+    <button id="update" class="button">Update Item</button><br /><br />
+    <button id="viewall" class="button">View All Items</button>
+    <button id="delete" class="button">Delete Item</button>
+    <hr />
+    <p id="display"></p>
+  </div>
+  </body>
+</html>
