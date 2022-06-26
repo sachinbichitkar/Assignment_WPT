@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment</title>
+    <style>
+        .displayarea{color: black;}
+        .redcolor{color: red;}
+        .underline{
+            text-decoration: underline;}
+    </style>
+</head>
+<body>
+    <input type="text" id="text"> <span id="a1" class="displayarea">Output !</span><br>
+    <input type="checkbox" value="true" id="red">Red Background   
+    <input type="checkbox" value="true" id="uline">Underline   <br>
+    <input type="button" id="apply" value="Apply">
+ 
+
+    
+</body>
+
+<script>
+window.addEventListener('DOMContentLoaded', ()=>{
+    
+    const x=document.querySelector("#apply");
+    x.addEventListener('click',()=>{
+        let y=document.querySelector("#text");
+        let z=document.querySelector("#a1");
+       
+        let ck1=document.querySelector("#red");
+        let ck2=document.querySelector("#uline");
+
+        z.innerText=y.value;
+            z.classList.remove("displayarea");
+            z.classList.remove("redcolor");
+            z.classList.remove("underline");
+
+        if(ck1.checked == true && ck2.checked == true){
+            z.classList.add("redcolor");
+            z.classList.add("underline");
+        }
+        else{ if(ck1.checked == true && ck2.checked != true){
+            z.classList.add("redcolor");
+        }
+        else{ if(ck1.checked != true && ck2.checked == true){
+            z.classList.add("underline");
+        }else{
+            z.classList.add("displayarea");
+        }
+    }
+    }
+      
+    });
+});
+
+</script>
+</html>

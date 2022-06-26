@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <input type="text" id="text1"><span id="span1">Next number</span></br>
+    <input type="button" value="next number" id="next">
+    <input type="button" value="prev number" id="prev">
+    
+</body>
+<script>
+window.addEventListener('DOMContentLoaded',()=>{
+    const x=document.querySelector("#next");
+    const y=document.querySelector("#prev");
+    console.log(x);
+    x.addEventListener('click',()=>{
+
+        let count=document.querySelector("#text1").value;
+        document.querySelector("#span1").innerHTML=parseInt(count)+1;
+    });
+    y.addEventListener('click',()=>{
+        let count=document.querySelector("#text1").value;
+        document.querySelector("#span1").innerHTML=count-1;
+    });
+});
+</script>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html,style{
+            background-color: bisque;
+        }
+        #Enterbutton{
+            background-color:crimson;
+            width: 2cm;
+            margin: 10px;
+            color: white;
+        }
+        #textarea{
+            margin: 10px;
+            width: 5cm;
+            background-color:rgb(227, 208, 212);
+        }
+        
+        h1{color: red;}
+    </style>
+</head>
+<body>
+    <h1>capital letter</h1>
+    <input type="text" id="textarea">
+    <span id="incapital">in capital !!</span></br>
+    <input type="button" id="Enterbutton" value="Enter ! ">
+</body>
+<script>
+window.addEventListener('DOMContentLoaded',()=>{
+    let x =document.querySelector("#Enterbutton");
+    x.addEventListener('click',()=>{
+        let y=document.querySelector("#incapital");
+        let z=document.querySelector("#textarea").value;
+        console.log(z);
+            y.innerHTML=z.toUpperCase();
+            
+    });
+
+});
+
+</script>
+</html>

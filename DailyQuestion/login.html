@@ -1,0 +1,79 @@
+<html>
+<head>
+<title>Login page</title>
+<style>
+.red{color:red}
+.green{color:green}
+.default{color:black}
+</style>
+</head>
+
+<body>
+
+
+<input type="text" id="t1" placeholder="username"><span id="s1"></span><br>
+<input type="text" id="t2" placeholder="password" ><span id="s2"></span><br>
+<input type="text" id="t3" placeholder="password1" hidden><br>
+<input type="button" id="login" value="login">
+<input type="button" id="signin" value="signup">
+<input type="button" id="signin" value="create account" hidden>
+</body>
+<script>
+
+window.addEventListener('DOMContentLoaded',()=>{
+let s=[{uname:"sachin",pass:"S123"},{uname:"rushi",pass:"R123"}];
+
+function add(uname1,pass1){
+	let object={uname:uname1,pass:pass1};
+	s.push(object);
+}
+let a=document.querySelector("#login");
+	let b=document.querySelector("#t1");
+	let c=document.querySelector("#t2");
+	let d=document.querySelector("#s1");
+	let e=document.querySelector("#s2");
+	
+	a.addEventListener('click',()=>{
+		let i=0;
+	
+		for( i=0;i<s.length;i++){
+			if(s[i].uname == b.value){
+				if(s[i].pass == c.value){
+					d.innerHTML="LOGGEDIN SUCESSFULLY !!";
+					d.removeAttribute('red');
+					d.removeAttribute('default');
+					d.setAttribute('class','green');
+				}else{
+					d.innerHTML="INCORRECT PASSWORD !!";
+					d.removeAttribute('green');
+					d.removeAttribute('default');
+					d.setAttribute('class','red');
+				}
+			break;
+			}
+		}
+		if(i==s.length){
+			d.innerHTML="ACCOUNT DOES NOT EXSIST !!";
+			d.removeAttribute('green');
+			d.removeAttribute('default');
+			d.setAttribute('class','red');
+		}
+	
+	});
+let l=document.querySelector("#signin");
+	l.addEventListener('click',()=>{
+		for(let i=0;i<s.length;i++){
+			if(s[i].uname==b.value){
+			d.innerHTML="ACCOUNT ALREADY EXSIST !!";
+			d.removeAttribute('green');
+			d.removeAttribute('default');
+			d.setAttribute('class','red');
+			}
+		}
+		//document.write('Hiiii');
+		s.push({uname:b.innerHTML,pass:"R123"});
+		console.log(b.innerHTML);
+	});
+});
+</script>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <title>Document</title>
+  <script>
+  $(()=>{   console.log("work1");
+    $("#rid").blur(()=>{
+      let num=$("#rid").val();
+      
+      let ip={
+        data:{resourceid:num},
+        type:"get",
+        dataType:"json",
+        url:"http://localhost:900/getResource",
+        success:(op)=>{
+          if(op.status==true){
+            $("#span").html("Resource found!");
+          }else{
+            $("#span").html("Resource Not found!");
+          }
+        },
+        error:(err)=>{
+          console.log("Error "+err);
+          $("#span").html("Error :");
+        }
+      }
+      $.ajax(ip);
+    });
+
+
+    $("#add").click(()=>{
+      let num=$("#rid").val();
+      let rname=$("#rname").val();
+      let status=$("#status").val();
+      let ip={
+        data:{resourceid:num,resourcename:rname,status:status},
+        type:"get",
+        dataType:"json",
+        url:"http://localhost:900/addResource",
+        success:(op)=>{
+          if(op.status==true){
+            $("#span").html("Resource added sucessfully!");
+          }else{
+            $("#span").html("More or less affected rows!");
+          }
+        },
+        error:(err)=>{
+          console.log("Error "+err);
+          $("#span").html("Error :");
+        }
+      }
+      $.ajax(ip);
+    });
+
+
+    $("#showall").click(()=>{
+      let num=$("#rid").val();
+      let rname=$("#rname").val();
+      let status=$("#status").val();
+      let ip={
+        data:{},
+        type:"get",
+        dataType:"json",
+        url:"http://localhost:900/showAll",
+        success:(op)=>{
+          if(op){
+            $("#span").html("Displaying Resources!");
+            let x="";
+            for(let i=0;i<op.length;i++){
+              x+=" Resource id  : "+op[i].resourceid+" resource name  : "+op[i].resourcename+
+              " Resource Status  : "+op[i].status+" <br>";
+            }
+            $("#span2").html(x);
+          }else{
+            $("#span").html("Empty Table!");
+          }
+        },
+        error:(err)=>{
+          console.log("Error "+err);
+          $("#span").html("Error :");
+        }
+      }
+      $.ajax(ip);
+    });
+
+
+
+    $("#update").click(()=>{
+      let num=$("#rid").val();
+      let rname=$("#rname").val();
+      let status=$("#status").val();
+      let ip={
+        data:{resourceid:num,resourcename:rname,status:status},
+        type:"get",
+        dataType:"json",
+        url:"http://localhost:900/updateResource",
+        success:(op)=>{
+          if(op.status==true){
+            $("#span").html("Resource updated sucessfully!");
+          }else{
+            $("#span").html("More or less affected rows!");
+          }
+        },
+        error:(err)=>{
+          console.log("Error "+err);
+          $("#span").html("Error :");
+        }
+      }
+      $.ajax(ip);
+    });
+  });
+
+
+  </script>
+</head>
+
+<body>
+  <input type="text" name="resourceid" id="rid" placeholder="resourceid"><span id="span">Message</span><br>
+  <input type="text" name="resourcename" id="rname" placeholder="resourcename"><br>
+  <input type="text" name="status" id="status" placeholder="status"><br>
+  <input type="button" value="add" id="add">
+  <input type="button" value="Show All" id="showall">
+  <input type="button" value="update" id="update"><br><br><hr>
+  <span id="span2">All resources</span>
+
+</body>
+</html>

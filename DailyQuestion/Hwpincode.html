@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AreaPincode</title>
+    <style>
+        .green{color: green;}
+        .red{color: red;}
+        .regular{color: black;}
+    </style>
+</head>
+<body><h1>Pincode Area Validation</h1>
+<label for="pincode">PinCode :</label>
+<input type="text" id="pincode" placeholder="pincode"><span id="span0"></span><br><br>
+<label for="area">Area :</label>
+<input type="text" id="area" placeholder="Cityname"><span id="span1" class="regular">validation !!</span><br><br>
+<button id="clickbutton" disabled>Get Area Info</button>    <br>
+</body>
+<script>
+window.addEventListener('DOMContentLoaded',()=>{
+    let database1=[{pincode:410000,area:'mumbai'},{pincode:420000,area:'pune'},
+    {pincode:430000,area:'kolhapur'},{pincode:440000,area:'latur'},{pincode:450000,area:'solapur'}];
+    const x=document.querySelector("#clickbutton");
+    const y=document.querySelector("#pincode");
+        let a=document.querySelector("#pincode");
+        let b=document.querySelector("#area");
+        let c=document.querySelector("#span1");
+    y.addEventListener('blur',()=>{
+        let n= document.querySelector("#span0");
+        for(let j=0;j<database1.length;j++){
+            console.log(database1[j],parseInt(a.value));
+            if(database1[j].pincode==parseInt(a.value)){
+                n.innerHTML="";
+             n.removeAttribute("red");
+             x.disabled=false;
+                break;
+            }else{
+          
+              n.innerHTML="Cannot Find pincode";
+              n.setAttribute("class","red");
+              x.disabled=true;
+            }
+        }
+    });
+    x.addEventListener('click',()=>{
+    
+        let i=0;
+        for(;i<database1.length;i++){
+        //    console.log(a.value,database1[i].pincode,b.value,database1[i].area);
+            if(parseInt(a.value)==database1[i].pincode ){
+                if( b.value == database1[i].area){
+                    c.innerText="Entered Field are correct !";
+                    c.removeAttribute("class");
+                    c.setAttribute("class","green");
+                }else{
+                    c.innerText="Entered Field are Incorrect !";
+                    c.removeAttribute("class");
+                    c.setAttribute("class","red");
+                } 
+                break;  
+            }
+        }
+
+    });
+});
+
+</script>
+</html>
